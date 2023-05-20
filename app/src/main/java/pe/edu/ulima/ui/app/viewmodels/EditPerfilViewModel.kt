@@ -12,12 +12,6 @@ import pe.edu.ulima.services.UserService
 
 class EditPerfilViewModel : ViewModel() {
 
-    private val _imagen = MutableLiveData<String>()
-    val imagen: LiveData<String> = _imagen
-
-    fun updateImagen(it: String) {
-        _imagen.value = it
-    }
 
     private val _id = MutableLiveData<Int>()
     val id: LiveData<Int> = _id
@@ -33,9 +27,19 @@ class EditPerfilViewModel : ViewModel() {
         _nombre.value = it
     }
 
-    fun cargarImagenes(i: Int): String {
-        val imagenes: List<Imagen> = ImagenService.fetchAll()
-        return imagenes.getOrNull(i)?.url ?: ""
+
+    private val _imagen = MutableLiveData<String>("")
+    val imagen: LiveData<String> = _imagen
+
+    fun setImagen(userId: Int) {
+        _imagen.value = UserService.getImagenById(userId)
+    }
+
+
+
+    fun cargarImagenes(i: Int): List<String> {
+        val imagenes: List<String> = ImagenService.fetchImageByUserId(i)
+        return imagenes
     }
 
     private val _usuario = MutableLiveData<String>()

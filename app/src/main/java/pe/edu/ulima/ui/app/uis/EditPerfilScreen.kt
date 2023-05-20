@@ -77,14 +77,20 @@ fun EditPerfilScreen(
 
     // Editar Perfil
 
-
+    val activity = context as Activity
+    val intent = activity.intent
+    val userId = intent.getIntExtra("user_id", 0)
     val contraseñaantigua : String by viewModel.acontraseña.observeAsState(initial = "")
     val contraseñanueva : String by viewModel.ncontraseña.observeAsState(initial = "")
     val contraseñarepetida : String by viewModel.rcontraseña.observeAsState(initial = "")
     val mensaje2 : String by viewModel.mensaje2.observeAsState(initial = "")
+    val imagenEditPerfil: String by viewModel.imagen.observeAsState("")
 
-    val userId = (0..199).random()
-    val imagen: String = viewModel.cargarImagenes(userId)
+
+
+    viewModel.setImagen(userId)
+
+
 
     Box(modifier = Modifier.fillMaxSize()) {
         IconButton(
@@ -124,7 +130,7 @@ fun EditPerfilScreen(
                 ) {
 
                     Image(
-                        painter = rememberImagePainter(data = imagen),
+                        painter = rememberImagePainter(data = imagenEditPerfil),
                         contentDescription = "Logo Pokedex",
                         modifier = Modifier
                             .size(120.dp)
