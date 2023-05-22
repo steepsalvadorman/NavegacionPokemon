@@ -26,41 +26,41 @@ fun AppNavigation(
 
     NavHost(
         navController = navController,
-        startDestination = "pokemon"
+        startDestination = "/pokemon"
     ) {
         // Vista para mostrar el listado de pokemones
-        composable(route = "pokemon") {
+        composable(route = "/pokemon") {
             HomeScreen(
                 goToEditPerfilScreen = {
-                    navController.navigate("pokemon/edit_perfil")
+                    navController.navigate("/pokemon/edit_perfil")
                 },
                 goToFollowsScreen = {
-                    navController.navigate("pokemon/seguidos")
+                    navController.navigate("/pokemon/seguidos")
                 },
                 homeScreenViewModel
 
             )
         }
 
-        composable(route = "pokemon/edit_perfil") { entry ->
+        composable(route = "/pokemon/edit_perfil") { entry ->
             EditPerfilScreen(
                 editPerfilViewModel
             )
         }
 
         composable(
-            route = "pokemon/seguidos"
+            route = "/pokemon/seguidos"
         ) { entry ->
             HomeFollowsScreen(
                 pokemonViewModel
             ) { followerId ->
-                navController.navigate("pokemon/seguidos/seguidor/$followerId")
+                navController.navigate("/pokemon/seguidos/seguidor/$followerId")
             }
         }
 
 
         composable(
-            route = "pokemon/seguidos/seguidor/{followerId}",
+            route = "/pokemon/seguidos/seguidor/{followerId}",
             arguments = listOf(
                 navArgument("followerId") { type = NavType.IntType }
             )

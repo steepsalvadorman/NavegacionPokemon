@@ -86,11 +86,7 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.Center,
 
                 ) {
-/*
-                val random = Random(System.currentTimeMillis())
-                val imagen: Imagen = viewModel.imagenes!![random.nextInt(viewModel.imagenes!!.size)]
 
- */
                 Image(
                     painter = rememberImagePainter(data = imagenPerfil),
                     contentDescription = "Logo Pokedex",

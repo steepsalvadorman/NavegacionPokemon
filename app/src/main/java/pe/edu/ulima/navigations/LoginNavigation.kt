@@ -35,7 +35,6 @@ fun LoginNavigation(
     NavHost(
         navController = navController,
         startDestination = "/"
-    //La pregunta seria el splashscreen como se manejaria si la navegacion empieza desde el login
     ){
         composable(
             route = "/",
@@ -43,10 +42,29 @@ fun LoginNavigation(
         ){ entry ->
             SplashScreen()
             Handler().postDelayed({
-                navController.navigate("/login/")
+                navController.navigate("/login/") //Despues de 2 segundos vamos a /login/
             }, 2000)
 
         }
+
+
+        composable(
+            route = "/login/",
+            arguments = listOf()
+        ){ entry ->
+            LoginScreen(
+                loginScreenViewModel,
+                goToCreateAccountScreen = {
+                    navController.navigate("/create_account")
+                },
+                goToResetPasswordScreen = {
+                    navController.navigate("/reset_password")
+                }
+            )
+        }
+
+
+
 
         composable(
             route = "/login/{parameter}?optionalParameter={optionalParameter}",
@@ -90,20 +108,7 @@ fun LoginNavigation(
                 )
             }
         }
-        composable(
-            route = "/login/",
-            arguments = listOf()
-        ){ entry ->
-            LoginScreen(
-                loginScreenViewModel,
-                goToCreateAccountScreen = {
-                    navController.navigate("/create_account")
-                },
-                goToResetPasswordScreen = {
-                    navController.navigate("/reset_password")
-                }
-            )
-        }
+
         composable(
             route = "/reset_password",
             arguments = listOf()
@@ -111,7 +116,6 @@ fun LoginNavigation(
             ResetPasswordScreen(
                 resetPasswordScreenViewModel,
                 goToLoginScreen = {
-                    Log.d("pe.edu.ulima", resetPasswordScreenViewModel.correo.value.toString())
                     val parameter = resetPasswordScreenViewModel.correo.value.toString()
                     navController.navigate("/login/$parameter")
                     //ESTO TAMPOCO ENTIENDO
